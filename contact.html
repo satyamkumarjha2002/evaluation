@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Database</title>
+    <link rel="stylesheet" href="commonStyles.css" />
+  </head>
+
+  <body>
+    <div id="links">
+      <div><a href="index.html">Home</a></div>
+      <div><a href="contact.html">Contact List</a></div>
+      <div><a href="favourites.html">Favourites</a></div>
+    </div>
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th>Contact Name</th>
+            <th>Mobile Number</th>
+            <th>Type</th>
+            <th>Favourites</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Append your output to tbody -->
+        </tbody>
+      </table>
+    </main>
+  </body>
+  <script>
+    //code your js part here
+    //append your output to tbody
+    var from_local=JSON.parse(localStorage.getItem("contactList"));
+    from_local.map(function(ele){
+      var tr=document.createElement("tr");
+      var td=document.createElement("td");
+      td.innerText=ele.name;
+      var td1=document.createElement("td");
+      td1.innerText=ele.mobile;
+      var td2=document.createElement("td");
+      td2.innerText=ele.type;
+      var td3=document.createElement("td");
+      var btn=document.createElement("button");
+      btn.innerText="Add to fav";
+      btn.addEventListener("click",function(){
+        myfunction(ele);
+      })
+      td3.append(btn)
+      tr.append(td,td1,td2,td3);
+      document.querySelector("tbody").append(tr)
+    })
+    var from_local2=JSON.parse(localStorage.getItem("favourites"))
+    if(from_local2==null){
+      var fav_data=[]
+    }else{
+      fav_data=from_local2
+    }
+  function myfunction(ele){
+    event.preventDefault();
+    var obj={
+      name:ele.name,
+      mobile:ele.mobile,
+      type:ele.type
+    }
+    fav_data.push(obj);
+    localStorage.setItem("favourites",JSON.stringify(fav_data));
+  }
+  </script>
+</html>
